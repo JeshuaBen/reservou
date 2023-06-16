@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import MapImage from "../../../../assets/mapImage.png";
+import MapImage from "../../../../assets/png/mapImage.png";
 
 const Location = () => {
   return (

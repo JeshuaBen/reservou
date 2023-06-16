@@ -1,5 +1,5 @@
-import Filter from "../assets/filtro.svg";
-import Menu from "../assets/menu.svg";
+import Filter from "../assets/svg/filtro.svg";
+import Menu from "../assets/svg/menu.svg";
 
 export const selectIcon = (icon: string) => {
   switch (icon) {

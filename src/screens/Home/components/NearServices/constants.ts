@@ -1,5 +1,5 @@
-import FirstImage from "../../../../assets/defaultImage.jpeg";
-import SecondImage from "../../../../assets/defaultImage2.jpeg";
+import FirstImage from "../../../../assets/png/defaultImage.jpeg";
+import SecondImage from "../../../../assets/png/defaultImage2.jpeg";
 
 export const servicesInfo = [
   {

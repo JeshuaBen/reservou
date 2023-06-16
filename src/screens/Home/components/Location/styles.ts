@@ -15,6 +15,7 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semiBold};
   color: ${({ theme }) => theme.colors.blueText};
   font-size: ${RFValue(16)}px;
+  line-height: 22px;
 `;
 
 export const MapImage = styled.Image`
@@ -24,7 +25,7 @@ export const MapImage = styled.Image`
 
 export const ActivateGpsWrapper = styled.View`
   width: 100%;
-  margin: 22px 0px 0px;
+  margin: 20px 0px 0px;
   align-items: center;
   justify-content: center;
 `;
@@ -41,4 +42,5 @@ export const ActivateGpsText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   color: ${({ theme }) => theme.colors.white};
   font-size: ${RFValue(12)}px;
+  line-height: 18px;
 `;

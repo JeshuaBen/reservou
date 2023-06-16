@@ -10,10 +10,13 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semiBold};
   color: ${({ theme }) => theme.colors.blueText};
   font-size: ${RFValue(16)}px;
+  line-height: 22px;
 `;
 
 export const ServiceCardsWrapper = styled.View`
   width: 100%;
+  margin-top: 12px;
   flex-direction: row;
-  gap: 16px;
+  gap: 12px;
+  padding-right: 16px;
 `;
