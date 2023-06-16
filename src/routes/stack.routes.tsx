@@ -15,7 +15,7 @@ export const StackRoutes: React.FC = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="Register"
+      initialRouteName="Home"
     >
       <Screen name="Register" component={Register} />
       <Screen name="Home" component={Home} />
