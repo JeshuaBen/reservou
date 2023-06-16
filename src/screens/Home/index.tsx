@@ -5,6 +5,7 @@ import { selectIcon } from "../../utils/selectIcon";
 import Location from "./components/Location";
 import Divider from "../../components/Divider";
 import NearServices from "./components/NearServices";
+import Footer from "./components/Footer";
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
 
         <Divider marginTop={2} />
       </S.Content>
+      <Footer />
     </S.Container>
   );
 };
