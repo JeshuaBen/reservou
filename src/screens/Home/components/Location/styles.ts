@@ -19,7 +19,7 @@ export const Title = styled.Text`
 
 export const MapImage = styled.Image`
   width: 100%;
-  height: ${RFValue(160)}px;
+  height: ${RFValue(136)}px;
 `;
 
 export const ActivateGpsWrapper = styled.View`

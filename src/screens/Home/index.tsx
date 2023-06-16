@@ -4,6 +4,7 @@ import Logo from "../../assets/logo.png";
 import { selectIcon } from "../../utils/selectIcon";
 import Location from "./components/Location";
 import Divider from "../../components/Divider";
+import NearServices from "./components/NearServices";
 
 const Home = () => {
   return (
@@ -15,7 +16,11 @@ const Home = () => {
       <S.Content>
         <Location />
 
-        <Divider />
+        <Divider marginTop={20} />
+
+        <NearServices />
+
+        <Divider marginTop={2} />
       </S.Content>
     </S.Container>
   );

@@ -1,7 +1,13 @@
 import * as S from "./styles";
 
-const Divider = () => {
-  return <S.Separator />;
+const Divider = ({ marginTop }: IDivider) => {
+  return (
+    <S.Separator
+      style={{
+        marginTop: marginTop ?? "22px",
+      }}
+    />
+  );
 };
 
 export default Divider;
