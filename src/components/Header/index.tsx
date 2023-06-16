@@ -1,24 +1,25 @@
 import { useTheme } from "styled-components";
 import * as S from "./styles";
-import Logo from "../../assets/logo.svg";
-import Filter from "../../assets/filtro.svg";
-import Menu from "../../assets/menu.svg";
 
-const Header = () => {
+import { IHeaderProps } from "./types";
+
+const Header = ({
+  leftIcon: LeftIcon,
+  rightIcon: RightIcon,
+  children,
+}: IHeaderProps) => {
   const theme = useTheme();
 
   return (
     <S.Container>
       <S.MenuWrapper>
-        <Menu />
+        <LeftIcon />
       </S.MenuWrapper>
 
-      <S.LogoWrapper>
-        <Logo />
-      </S.LogoWrapper>
+      <S.LogoWrapper>{children}</S.LogoWrapper>
 
       <S.FilterWrapper>
-        <Filter />
+        <RightIcon />
       </S.FilterWrapper>
     </S.Container>
   );
