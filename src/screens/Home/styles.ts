@@ -10,7 +10,7 @@ export const Logo = styled.Image`
   height: 38px;
 `;
 
-export const Content = styled.ScrollView`
+export const Content = styled.ScrollView.attrs({})`
   flex: 1;
   width: 100%;
 `;

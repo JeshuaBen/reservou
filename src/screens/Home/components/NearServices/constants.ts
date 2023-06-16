@@ -5,7 +5,7 @@ export const servicesInfo = [
   {
     title: "Prato Pronto",
     image: FirstImage,
-    backgroundColor: "#E1B12C82",
+    backgroundColor: "#edd490",
     color: "#f8f8f8",
   },
 
