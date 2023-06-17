@@ -20,7 +20,7 @@ export const FormStacker = styled.ScrollView.attrs({
 `;
 
 export const FormGroup = styled.View`
-  margin-top: 5px;
+  margin-top: 2px;
   width: 100%;
 `;
 
