@@ -8,14 +8,19 @@ export const Container = styled.KeyboardAvoidingView`
   justify-content: space-between;
 `;
 
-export const FormStacker = styled.View`
+export const FormStacker = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  showsVerticalScrollIndicator: false,
+})`
   width: 100%;
   gap: 6px;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const FormGroup = styled.View`
+  margin-top: 5px;
   width: 100%;
 `;
 
@@ -31,7 +36,7 @@ export const RegistryButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  margin-top: 12px;
+  margin-top: 24px;
 `;
 
 export const RegistryButtonText = styled.Text`

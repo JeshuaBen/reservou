@@ -6,8 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../routes/stack.routes";
-import zxcvbn from "zxcvbn";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import { Platform } from "react-native";
 
 const registryFormSchema = z.object({
   name: z.string().min(3, "Nome obrigatário"),
@@ -32,11 +31,15 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
   const [toggleVisibility, setToggleVisibility] = useState<boolean>(false);
   const [toggleConfirmVisibility, setToggleConfirmVisibility] =
     useState<boolean>(false);
+  const [passwordsMatch, setPasswordsMatch] = useState<boolean>(true);
 
   const { control, register, formState, handleSubmit, watch, getValues } =
     useForm<RegistryFormData>({
       resolver: zodResolver(registryFormSchema),
     });
+
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
 
   const togglePassword = () => {
     setToggleVisibility(!toggleVisibility);
@@ -46,14 +49,14 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
     setToggleConfirmVisibility(!toggleConfirmVisibility);
   };
 
-  const onSubmit = () => {
-    console.log(getValues());
+  const onSubmit = (data: any) => {
+    console.log(data);
     formState.errors ? navigation.navigate("Home") : null;
   };
 
   return (
     <S.Container
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <S.FormStacker>
@@ -137,9 +140,16 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
                 visibility={toggleVisibility}
               />
 
-              {formState.errors.password && (
-                <S.Error>{formState.errors.password.message}</S.Error>
-              )}
+              {formState.errors.password &&
+                (!password.includes("@") ||
+                !password.includes("#") ||
+                !password.includes("$") ||
+                !password.includes("%") ||
+                !password.includes("*") ? (
+                  <S.Error>A senha está muito fraca</S.Error>
+                ) : (
+                  <S.Error>{formState.errors.password.message}</S.Error>
+                ))}
             </S.FormGroup>
           )}
           name="password"
@@ -163,16 +173,21 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
                 toggleVisibility={toggleConfirmPassword}
                 visibility={toggleConfirmVisibility}
               />
-              {formState.errors.confirmPassword && (
-                <S.Error>{formState.errors.confirmPassword.message}</S.Error>
-              )}
+              {formState.errors.confirmPassword &&
+                (confirmPassword !== password ? (
+                  <S.Error>As senhas não coincidem</S.Error>
+                ) : (
+                  <S.Error>{formState.errors.confirmPassword.message}</S.Error>
+                ))}
             </S.FormGroup>
           )}
           name="confirmPassword"
           defaultValue=""
         />
       </S.FormStacker>
-
+      {!passwordsMatch && (
+        <S.Error style={{ textAlign: "center" }}>Senhas não coincidem</S.Error>
+      )}
       <S.RegistryButton onPress={handleSubmit(onSubmit)}>
         <S.RegistryButtonText>Criar Conta</S.RegistryButtonText>
       </S.RegistryButton>
