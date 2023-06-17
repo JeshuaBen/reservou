@@ -1,7 +1,7 @@
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
   width: 100%;
   padding: 16px 16px 24px 16px;
   flex: 1;

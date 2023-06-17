@@ -6,12 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../routes/stack.routes";
+import zxcvbn from "zxcvbn";
+import { KeyboardAvoidingView, Platform } from "react-native";
 
 const registryFormSchema = z.object({
   name: z.string().min(3, "Nome obrigatário"),
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
   password: z.string().min(6, "Senha inválida"),
+
   confirmPassword: z.string().min(6, "Senha inválida"),
 });
 
@@ -45,11 +48,14 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
 
   const onSubmit = () => {
     console.log(getValues());
-    navigation.navigate("Home");
+    formState.errors ? navigation.navigate("Home") : null;
   };
 
   return (
-    <S.Container>
+    <S.Container
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
       <S.FormStacker>
         <Controller
           rules={{ required: true }}
@@ -141,7 +147,9 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
         />
 
         <Controller
-          rules={{ required: true }}
+          rules={{
+            required: true,
+          }}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <S.FormGroup>
@@ -165,7 +173,7 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
         />
       </S.FormStacker>
 
-      <S.RegistryButton onPress={onSubmit}>
+      <S.RegistryButton onPress={handleSubmit(onSubmit)}>
         <S.RegistryButtonText>Criar Conta</S.RegistryButtonText>
       </S.RegistryButton>
     </S.Container>
