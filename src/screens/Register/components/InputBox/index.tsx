@@ -17,33 +17,39 @@ const InputBox = forwardRef<TextInput, InputBoxProps>(
       visibility = false,
       passwordInput,
       toggleVisibility,
+      error,
     },
     ref: ForwardedRef<TextInput>
   ) => {
     const theme = useTheme();
     return (
-      <S.Container>
-        <S.Title>{title}</S.Title>
-        <S.InputWrapper>
-          <S.Input
-            ref={ref as any}
-            placeholder={placeholder}
-            value={value}
-            onChangeText={onChange}
-            onBlur={onBlur}
-            secureTextEntry={passwordInput && !visibility}
-          />
-          {passwordInput && (
-            <S.ToggleVisibility onPress={() => toggleVisibility(!visibility)}>
-              <S.Visibility
-                size={24}
-                name={visibility ? "eye-off" : "eye"}
-                color={theme.colors.gray}
-              />
-            </S.ToggleVisibility>
-          )}
-        </S.InputWrapper>
-      </S.Container>
+      <S.FormContainer>
+        <S.Container>
+          <S.Title>{title}</S.Title>
+          <S.InputWrapper
+            style={{ borderColor: error ? "red" : theme.colors.gray }}
+          >
+            <S.Input
+              ref={ref as any}
+              placeholder={placeholder}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              secureTextEntry={passwordInput && !visibility}
+            />
+            {passwordInput && (
+              <S.ToggleVisibility onPress={() => toggleVisibility(!visibility)}>
+                <S.Visibility
+                  size={24}
+                  name={visibility ? "eye-off" : "eye"}
+                  color={theme.colors.gray}
+                />
+              </S.ToggleVisibility>
+            )}
+          </S.InputWrapper>
+        </S.Container>
+        <S.Error>{error}</S.Error>
+      </S.FormContainer>
     );
   }
 );
