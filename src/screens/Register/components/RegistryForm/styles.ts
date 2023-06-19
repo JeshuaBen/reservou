@@ -3,8 +3,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.KeyboardAvoidingView`
   width: 100%;
-  padding: 16px 16px 24px 16px;
-  flex: 1;
+  padding: 16px 16px 0px 16px;
   justify-content: space-between;
 `;
 
@@ -16,17 +15,6 @@ export const FormStacker = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
   width: 100%;
-  gap: 6px;
-`;
-
-export const FormGroup = styled.View`
-  margin-top: 2px;
-  width: 100%;
-`;
-
-export const Error = styled.Text`
-  color: red;
-  font-size: 12px;
 `;
 
 export const RegistryButton = styled.TouchableOpacity`

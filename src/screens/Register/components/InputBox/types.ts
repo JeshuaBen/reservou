@@ -9,4 +9,5 @@ export interface IInputBox {
   passwordInput?: boolean;
   visibility?: boolean;
   toggleVisibility?: (visibility: boolean) => void;
+  error?: string;
 }

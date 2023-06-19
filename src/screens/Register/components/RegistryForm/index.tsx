@@ -8,14 +8,27 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../../routes/stack.routes";
 import { Platform } from "react-native";
 
-const registryFormSchema = z.object({
-  name: z.string().min(3, "Nome obrigatário"),
-  email: z.string().email("Email inválido"),
-  phone: z.string().min(10, "Telefone inválido"),
-  password: z.string().min(6, "Senha inválida"),
+const registryFormSchema = z
+  .object({
+    name: z.string().min(3, "Nome é obrigatário"),
+    email: z.string().email("Email inválido"),
+    phone: z.string().min(10, "Telefone inválido"),
+    password: z.string().min(8, "Senha deve conter pelo menos 8 caracteres"),
 
-  confirmPassword: z.string().min(6, "Senha inválida"),
-});
+    confirmPassword: z.string().min(8, "Senha inválida"),
+  })
+  .refine((data) => data.password !== data.password.toLowerCase(), {
+    message: "Senha deve conter pelo menos uma letra maiúscula",
+    path: ["password"],
+  })
+  .refine((data) => data.password !== data.password.toUpperCase(), {
+    message: "Senha deve conter pelo menos uma letra minúscula",
+    path: ["password"],
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "As senhas não conferem",
+    path: ["confirmPassword"],
+  });
 
 type RegistryFormData = z.infer<typeof registryFormSchema>;
 
@@ -37,9 +50,6 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
     useForm<RegistryFormData>({
       resolver: zodResolver(registryFormSchema),
     });
-
-  const password = watch("password");
-  const confirmPassword = watch("confirmPassword");
 
   const togglePassword = () => {
     setToggleVisibility(!toggleVisibility);
@@ -64,19 +74,15 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
           rules={{ required: true }}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <S.FormGroup>
-              <InputBox
-                title="Nome"
-                placeholder="Nome"
-                {...register("name")}
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-              />
-              {formState.errors.name && (
-                <S.Error>{formState.errors.name.message}</S.Error>
-              )}
-            </S.FormGroup>
+            <InputBox
+              title="Nome"
+              placeholder="Nome"
+              {...register("name")}
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              error={formState?.errors?.name?.message}
+            />
           )}
           name="name"
           defaultValue=""
@@ -86,18 +92,14 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
           rules={{ required: true }}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <S.FormGroup>
-              <InputBox
-                title="E-mail"
-                placeholder="E-mail"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-              />
-              {formState.errors.email && (
-                <S.Error>{formState.errors.email.message}</S.Error>
-              )}
-            </S.FormGroup>
+            <InputBox
+              title="E-mail"
+              placeholder="E-mail"
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              error={formState?.errors?.email?.message}
+            />
           )}
           name="email"
           defaultValue=""
@@ -107,18 +109,14 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
           rules={{ required: true }}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <S.FormGroup>
-              <InputBox
-                title="Telefone"
-                placeholder="Telefone"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-              />
-              {formState.errors.phone && (
-                <S.Error>{formState.errors.phone.message}</S.Error>
-              )}
-            </S.FormGroup>
+            <InputBox
+              title="Telefone"
+              placeholder="Telefone"
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              error={formState?.errors?.phone?.message}
+            />
           )}
           name="phone"
           defaultValue=""
@@ -128,29 +126,17 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
           rules={{ required: true }}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <S.FormGroup>
-              <InputBox
-                title="Criar senha"
-                placeholder="Criar senha"
-                passwordInput
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                toggleVisibility={togglePassword}
-                visibility={toggleVisibility}
-              />
-
-              {formState.errors.password &&
-                (!password.includes("@") ||
-                !password.includes("#") ||
-                !password.includes("$") ||
-                !password.includes("%") ||
-                !password.includes("*") ? (
-                  <S.Error>A senha está muito fraca</S.Error>
-                ) : (
-                  <S.Error>{formState.errors.password.message}</S.Error>
-                ))}
-            </S.FormGroup>
+            <InputBox
+              title="Criar senha"
+              placeholder="Criar senha"
+              passwordInput
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              toggleVisibility={togglePassword}
+              visibility={toggleVisibility}
+              error={formState?.errors?.password?.message}
+            />
           )}
           name="password"
           defaultValue=""
@@ -162,35 +148,25 @@ const RegistryForm = ({ navigation }: RegistryFormProps) => {
           }}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <S.FormGroup>
-              <InputBox
-                title="Confirmar senha"
-                placeholder="Confirmar senha"
-                passwordInput
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value}
-                toggleVisibility={toggleConfirmPassword}
-                visibility={toggleConfirmVisibility}
-              />
-              {formState.errors.confirmPassword &&
-                (confirmPassword !== password ? (
-                  <S.Error>As senhas não coincidem</S.Error>
-                ) : (
-                  <S.Error>{formState.errors.confirmPassword.message}</S.Error>
-                ))}
-            </S.FormGroup>
+            <InputBox
+              title="Confirmar senha"
+              placeholder="Confirmar senha"
+              passwordInput
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+              toggleVisibility={toggleConfirmPassword}
+              visibility={toggleConfirmVisibility}
+              error={formState?.errors?.confirmPassword?.message}
+            />
           )}
           name="confirmPassword"
           defaultValue=""
         />
+        <S.RegistryButton onPress={handleSubmit(onSubmit)}>
+          <S.RegistryButtonText>Criar Conta</S.RegistryButtonText>
+        </S.RegistryButton>
       </S.FormStacker>
-      {!passwordsMatch && (
-        <S.Error style={{ textAlign: "center" }}>Senhas não coincidem</S.Error>
-      )}
-      <S.RegistryButton onPress={handleSubmit(onSubmit)}>
-        <S.RegistryButtonText>Criar Conta</S.RegistryButtonText>
-      </S.RegistryButton>
     </S.Container>
   );
 };
