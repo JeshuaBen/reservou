@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   width: 100%;
-  padding: 14px 16px 14px 16px;
+  padding: 12px 16px 10px 16px;
 `;
 
 export const Title = styled.Text`

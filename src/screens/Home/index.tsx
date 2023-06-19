@@ -18,7 +18,7 @@ const Home = () => {
       <S.Content>
         <Location />
 
-        <Divider marginTop={16} />
+        <Divider marginTop={10} />
 
         <NearServices />
 

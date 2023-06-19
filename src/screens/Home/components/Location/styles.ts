@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const TitleWrapper = styled.View`
   width: 100%;
-  padding: 16px 16px 8px 16px;
+  padding: 12px 16px 4px 16px;
   align-items: flex-start;
 `;
 
@@ -25,7 +25,7 @@ export const MapImage = styled.Image`
 
 export const ActivateGpsWrapper = styled.View`
   width: 100%;
-  margin: 20px 0px 0px;
+  margin: 14px 0px 0px;
   align-items: center;
   justify-content: center;
 `;
